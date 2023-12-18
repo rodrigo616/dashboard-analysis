@@ -78,25 +78,57 @@ layout = dbc.Col([
                             ], width=4)
                         ], style={'margin-top': '25px'})
                     ])
-                ])
                 ], id='modal-novo-receita'),
 
                 #Modal Despesa 
-                dbc.Modal([
-                    dbc.ModalHeader(dbc.ModalTitle('Adicionar despesa')),
-                    dbc.ModalBody([
-                        
-                    ])
-                ], id='modal-novo-despesa'), 
+                             
+                 dbc.Modal([
+                     dbc.ModalHeader(dbc.ModalTitle('Adicionar despesa')),
+                     dbc.ModalBody([
+                         dbc.Row([
+                             dbc.Col([
+                                 dbc.Label('Descrição: '),
+                                 dbc.Input(placeholder="Ex.: dividendos da bolsa, herança...", id="text-receita"),
+                             ], width=6),
+                             dbc.Col([
+                                 dbc.Label('Valor: '),
+                                 dbc.Input(placeholder="R$100,00", id="valor-receita", value="")
+                             ], width=6)
+                         ]),
+                         dbc.Row([
+                             dbc.Col([
+                                 dbc.Label("Data: "),
+                                 dcc.DatePickerSingle(id='date-receitas',
+                                 min_date_allowed=date(2020,1,1),
+                                 max_date_allowed=date(2023,12,31),
+                                 date=datetime.today(),
+                                 style={"width": "100%"}
+                                     ),
+                             ], width=4),
+                             dbc.Col([
+                               dbc.Label("Extras"),
+                               dbc.Checklist(
+                                     options=[],
+                                     value=[],
+                                     id='switches-input-receita',
+                                     switch=True
+                                  )
+                             ], width=4),
+                             dbc.Col([
+                                   html.Label("Categoria de receita"),
+                                   dbc.Select(id='select_receita', options=[], value=[])
+                             ], width=4)
+                         ], style={'margin-top': '25px'})
+                     ])
+                 ], id='modal-novo-despesa'), 
 
 
-    # #Seção NAV (navegação) --------------------------
-                html.Hr(),
-                dbc.Nav(
-                 [
-                     dbc.NavLink("Dashboard", href="/dashboards", active="exact"),
-                     dbc.NavLink("Extratos", href="/extratos", active="exact"),
-                 ], vertical=True, pills=True, id='nav_buttons', style={"margin-bottom": "50px"}), #pills é o desenho que forma quando ele é selecionado 
+     #Seção NAV (navegação) --------------------------
+                    html.Hr(),
+                    dbc.Nav([
+                       dbc.NavLink("Dashboard", href="/dashboards", active="exact"),
+                       dbc.NavLink("Extratos", href="/extratos", active="exact"),
+                     ], vertical=True, pills=True, id='nav_buttons', style={"margin-bottom": "50px"}), #pills é o desenho que forma quando ele é selecionado 
 
             ], id='sidebar_completa')  
 
