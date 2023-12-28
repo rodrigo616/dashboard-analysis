@@ -20,7 +20,7 @@ card_icon= {
 
 # =========  Layout  =========== #
 layout = dbc.Col([
-       dbc.Row([
+            dbc.Row([
            
            #Saldo Total
            dbc.Col([
@@ -67,7 +67,54 @@ layout = dbc.Col([
                    )
                ])
            ], width=4),
-       ])
+            ], style={'margin':'10px'}),
+            dbc.Row([
+                dbc.Col([
+                    dbc.Card([
+                        html.Legend("Filtrar lançamentos", className="card-title"),
+                        html.Label("Categorias das receitas"),
+                        html.Div(
+                            dcc.Dropdown(
+                            id="dropdown-receita",
+                            clearable=False,
+                            style={"width":"100%"},
+                            persistence=True,
+                            persistence_type="session",
+                            multi=True)
+                        ),
+
+                    html.Label("Categorias das despesas", style={"margin-top":"10px"}),
+                    dcc.Dropdown(
+                        id="dropdown-despesa",
+                        clearable=False,
+                        style={"width":"100%"},
+                        persistence=True,
+                        persistence_type="session",
+                        multi=True
+                    ),
+
+                    html.Legend("Período de Análise", style={"margin-top": "10px"}),
+                    dcc.DatePickerRange(
+                        month_format='Do MMM, YY',
+                        end_date_placeholder_text='Data...',
+                        start_date=datetime(2010, 1, 1).date(),
+                        end_date=datetime.today() + timedelta(days=31),
+                        updatemode='singledate',
+                        id='date-picker-config',
+                        style={'z-index':'100'}),
+                ], style={'height': '100%', 'padding': '25px'})   
+            ], width=4),
+
+            dbc.Col(
+               dbc.Card(dcc.Graph(id='graph1'), style={'height':'100%', 'padding': '10px'}), width=8
+            )
+        ], style={'margin': '10px'}),
+
+        dbc.Row([
+            dbc.Col(dbc.Card(dcc.Graph(id='graph2'), style={'padding': '10px'}), width=6),
+            dbc.Col(dbc.Card(dcc.Graph(id='graph3'), style={'padding': '10px'}), width=3),
+            dbc.Col(dbc.Card(dcc.Graph(id='graph4'), style={'padding': '10px'}), width=3),
+        ])
     ])
 
 
